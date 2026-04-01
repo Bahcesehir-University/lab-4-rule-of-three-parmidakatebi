@@ -63,9 +63,13 @@ public:
     DynamicBuffer(const char* input) {
         // TODO: Implement constructor
         //   1. Increment g_constructorCount
+        g_constructorCount++;
         //   2. Calculate length of input using strlen()
+        m_length=strlen (input);
         //   3. Allocate m_data with new char[m_length + 1]
+        m_data=new char[m_length+1];
         //   4. Copy input into m_data using strcpy()
+        strcpy(m_data,input);
     }
 
     // --------------------------------------------------
@@ -76,7 +80,9 @@ public:
     ~DynamicBuffer() {
         // TODO: Implement destructor
         //   1. Increment g_destructorCount
+        g_destructorCount++;
         //   2. Delete the dynamically allocated array (delete[])
+        delete[]m_data;
     }
 
     // --------------------------------------------------
@@ -88,9 +94,13 @@ public:
     DynamicBuffer(const DynamicBuffer& other) {
         // TODO: Implement copy constructor
         //   1. Increment g_copyConstructorCount
+         g_destructorCount++;
         //   2. Copy m_length from other
+       m_length= other.m_length;
         //   3. Allocate new memory: new char[m_length + 1]
+        m_data=new char[m_length+1];
         //   4. Copy string data using strcpy()
+        strcpy(m_data,other.m_data);
     }
 
     // --------------------------------------------------
@@ -104,7 +114,9 @@ public:
     DynamicBuffer& operator=(const DynamicBuffer& other) {
         // TODO: Implement copy assignment operator
         //   1. Increment g_assignmentCount
+        g_assignmentCount++;
         //   2. Check for self-assignment (if this == &other)
+        if(this==&other){
         //   3. Delete old m_data (delete[])
         //   4. Copy m_length from other
         //   5. Allocate new memory: new char[m_length + 1]
@@ -112,7 +124,12 @@ public:
         //   7. Return *this
         return *this;
     }
-
+delete[]m_data;
+m_length=other.m_length;
+m_data=new char[m_length+1];
+strcpy(m_data,other.m_data);
+return *this;
+}
     // --------------------------------------------------
     // Accessors (DO NOT MODIFY)
     // --------------------------------------------------
@@ -131,6 +148,12 @@ public:
         //   2. Calculate new length with strlen()
         //   3. Allocate new memory: new char[m_length + 1]
         //   4. Copy newData into m_data using strcpy()
+    
+    
+        delete[]m_data;
+        m_length=strlen(newData);
+        m_data=new char[m_length+1];
+        strcpy(m_data,newData);
     }
 
     // --------------------------------------------------
